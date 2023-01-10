@@ -1,0 +1,26 @@
+version: '3'
+services:
+  mysql:
+    image: shomaigu/mysql-database-class
+#    build:
+#      context: .
+#      dockerfile: ./Dockerfile
+    volumes:
+    - ./mysql:/var/lib/mysql
+
+    environment:
+    - MYSQL_ROOT_PASSWORD=root
+    - TZ=Asia/Tokyo
+    ports:
+    - "3306:3306"
+    restart: always
+
+  flask:
+    container_name: db_flask
+    build:
+      context: ./flask
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    restart: always
+    tty: true
